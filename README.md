@@ -1,4 +1,4 @@
-# UniMarket CUNOC — PoC de API de Usuarios
+# UniMarket CUNOC - PoC de API de Usuarios
 
 Prueba de concepto en Node.js + Express para la práctica de comparación de proveedores de nube. Expone una API REST mínima que será desplegada en AWS, GCP, Azure y un cuarto proveedor a elección, para comparar el proceso de despliegue entre plataformas.
 
@@ -68,8 +68,8 @@ curl http://localhost:3000/health
 
 La app detecta automáticamente qué usar según la variable de entorno `DATABASE_URL`:
 
-- **Sin `DATABASE_URL`** → almacenamiento en memoria (útil para desarrollo rápido; los datos se pierden al reiniciar el proceso).
-- **Con `DATABASE_URL`** → Postgres real, compatible con RDS, Cloud SQL, Azure Database for PostgreSQL, o DigitalOcean Managed Database, sin cambiar una sola línea de código de la aplicación.
+- **Sin `DATABASE_URL`** - almacenamiento en memoria (útil para desarrollo rápido; los datos se pierden al reiniciar el proceso).
+- **Con `DATABASE_URL`** - Postgres real, compatible con RDS, Cloud SQL, Azure Database for PostgreSQL, o DigitalOcean Managed Database, sin cambiar una sola línea de código de la aplicación.
 
 ### Correr la migración
 
@@ -131,30 +131,3 @@ Verificar que el contenedor está sano:
 docker ps                # la columna STATUS debe decir "healthy" tras ~10-15s
 curl http://localhost:3000/health
 ```
-
-### Notas sobre la imagen
-
-- **Multi-stage build**: la etapa `deps` instala dependencias de producción (`npm ci --omit=dev`) y la etapa `runtime` solo copia lo estrictamente necesario — la imagen final no incluye `devDependencies`, ni el código fuente de instalación de npm, lo que la mantiene liviana (relevante para comparar tiempos de *cold start* entre proveedores serverless/contenedores).
-- **Base `node:20-alpine`**: imagen base pequeña, reduce superficie de ataque y tiempo de descarga/build en cada proveedor.
-- **Usuario no-root**: el contenedor corre como el usuario `node` (no root), buena práctica de seguridad a mencionar en la sección correspondiente del informe.
-- **HEALTHCHECK nativo**: usa `healthcheck.js` (con el módulo `http` de Node) en vez de `curl`/`wget`, evitando instalar paquetes adicionales en la imagen solo para el healthcheck.
-
-## Despliegue en los 4 proveedores de nube
-
-Este mismo Dockerfile, sin modificaciones, es compatible con los servicios de contenedor administrado de los cuatro proveedores de la práctica:
-
-| Proveedor | Servicio | Notas |
-|---|---|---|
-| AWS | App Runner | Conecta directo al repo de GitHub; detecta el Dockerfile automáticamente. |
-| Google Cloud | Cloud Run | Puede construir desde el repo o desde una imagen en Artifact Registry. |
-| Azure | Container Apps | Soporta CI/CD nativo con GitHub Actions. |
-| DigitalOcean | App Platform | Detecta el Dockerfile del repo y lo despliega sin configuración adicional. |
-
-Todos escuchan en el puerto expuesto por el contenedor (`3000` en este caso) y usan `/health` como endpoint de verificación de que el despliegue está vivo.
-
-
-## Próximos pasos (siguientes fases de la práctica)
-
-1. ~~Sustituir el repositorio en memoria por uno con Postgres real.~~ ✅ Listo — ver sección de persistencia arriba.
-2. Repetir el despliegue en los 4 proveedores, cada uno con su propia base de datos gestionada (RDS, Cloud SQL, Azure Database, o el cuarto proveedor), y documentar tiempo, dificultades y costo real de cada uno.
-3. Adaptar el punto de entrada a formato serverless (handler) para AWS Lambda / Cloud Functions / Azure Functions si se decide probar esa variante en vez de contenedores.
