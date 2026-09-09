@@ -5,8 +5,8 @@ Prueba de concepto en Node.js + Express para la práctica de comparación de pro
 ## Stack
 
 - **Node.js** + **Express 5** — API REST.
-- **bcryptjs** — hash de contraseñas (implementación 100% JavaScript, sin bindings nativos, lo que evita problemas de compilación al desplegar en distintos runtimes serverless de cada proveedor).
-- **dotenv** — configuración por variables de entorno.
+- **bcryptjs** - hash de contraseñas (implementación 100% JavaScript, sin bindings nativos, lo que evita problemas de compilación al desplegar en distintos runtimes serverless de cada proveedor).
+- **dotenv** - configuración por variables de entorno.
 - Persistencia en memoria por ahora, aislada en `src/repositories/usuarios.repository.js` para poder sustituirla por Postgres (RDS / Cloud SQL / Azure Database / equivalente) sin tocar controllers ni rutas.
 
 ## Endpoints
