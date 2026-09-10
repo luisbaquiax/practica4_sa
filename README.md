@@ -1,3 +1,9 @@
+# Entregables
+
+* [Informe](informe_aws_gcd_azure_digital_ocean.pdf)
+* [Presentación](en curso)
+* [Video](en curso)
+
 # UniMarket CUNOC - PoC de API de Usuarios
 
 Prueba de concepto en Node.js + Express para la práctica de comparación de proveedores de nube. Expone una API REST mínima que será desplegada en AWS, GCP, Azure y un cuarto proveedor a elección, para comparar el proceso de despliegue entre plataformas.
