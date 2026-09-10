@@ -1,8 +1,7 @@
 # Entregables
 
 * [Informe](informe_aws_gcd_azure_digital_ocean.pdf)
-* [Presentación](https://www.awesomescreenshot.com/video/56399247?key=0dafa8f8d134da3f77906a3060287d87)
-* [Video](en curso)
+* [Video](https://www.awesomescreenshot.com/video/56399247?key=0dafa8f8d134da3f77906a3060287d87)
 
 # UniMarket CUNOC - PoC de API de Usuarios
 
